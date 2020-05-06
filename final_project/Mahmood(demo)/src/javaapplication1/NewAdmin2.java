@@ -126,8 +126,10 @@ public class NewAdmin2 extends JFrame {
 	  	            " upass VARCHAR(255), " +
 			        " admin INT(11), " + 
 		            " PRIMARY KEY ( uid ))";
-	
+	    	String createWorkersTable = "CREATE TABLE nguyen_workers(worker_name VARCHAR(100), worker_id INT AUTO_INCREMENT PRIMARY KEY)";
+	    	
 	    	stmt.executeUpdate(sql);
+	    	stmt.executeUpdate(createWorkersTable);
 	    	System.out.println("Created table in given database...");
 	    	stmt = conn.getConnection().createStatement();
 	    } 

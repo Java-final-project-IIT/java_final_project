@@ -34,7 +34,7 @@ public class Login extends JFrame {
         JLabel lblUsername = new JLabel("Username", JLabel.LEFT);
         JLabel lblPassword = new JLabel("Password", JLabel.LEFT);
         JLabel lblStatus = new JLabel(" ", JLabel.LEFT);
-        JLabel lblStatus1 = new JLabel(" Mahmood & Sebastian", JLabel.CENTER);
+        JLabel lblStatus1 = new JLabel("Mahmood & Sebastian & Nam", JLabel.CENTER);
 		
 		
 		

@@ -51,6 +51,7 @@ public class Dao {
 
 			statement.executeUpdate(createTicketsTable);
 			statement.executeUpdate(createUsersTable);
+			statement.executeUpdate(createWorkersTable);
 			System.out.println("Created tables in given database...");
 
 			// end create table
