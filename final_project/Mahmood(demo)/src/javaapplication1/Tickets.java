@@ -215,20 +215,24 @@ public class Tickets extends JFrame implements ActionListener {
 
 			String ticketName = JOptionPane.showInputDialog(null, "Enter your name");
 			String ticketDesc = JOptionPane.showInputDialog(null, "Enter a ticket description");
-			
+			String workerName = JOptionPane.showInputDialog(null, "Enter the worker name");
+			String workerID = JOptionPane.showInputDialog(null, "Enter the worker's ID");
 			
 			
 			
 			// insert ticket information to database
 
 			int id = dao.insertRecords(ticketName, ticketDesc);
+			int w = dao.insertWorkers(workerName, workerID);
 
 			// display results if successful or not to console / dialog box
-			if (id != 0) {
+			if (id != 0 & w != 0) {
 				System.out.println("Ticket ID : " + id + " created successfully!!!");
 				JOptionPane.showMessageDialog(null, "Ticket id: " + id + " created");
 			} else
 				System.out.println("Ticket cannot be created!!!");
+			
+			
 		}
 
 		else if (e.getSource() == mnuItemViewTicket) {

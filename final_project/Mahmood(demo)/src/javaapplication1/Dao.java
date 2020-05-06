@@ -111,7 +111,51 @@ public class Dao {
 		}
 	}
 
-	
+	public void addWorkers() {
+		// add list of workers from workerlist.csv file to workers table
+
+		// variables for SQL Query inserts
+		String sql;
+
+		Statement statement;
+		BufferedReader br;
+		List<List<String>> array = new ArrayList<>(); // list to hold (rows & cols)
+
+		// read data from file
+		try {
+			br = new BufferedReader(new FileReader(new File("./workerlist.csv")));
+
+			String line;
+			while ((line = br.readLine()) != null) {
+				array.add(Arrays.asList(line.split(",")));
+			}
+		} catch (Exception e) {
+			System.out.println("There was a problem loading the file");
+		}
+
+		try {
+
+			// Setup the connection with the DB
+
+			statement = getConnection().createStatement();
+
+			// create loop to grab each array index containing a list of values
+			// and PASS (insert) that data into your Worker table
+			for (List<String> rowData : array) {
+
+				sql = "insert into nguyen_workers(worker_name, worker_id) " + "values('" + rowData.get(0) + "'," + " '"
+						+ rowData.get(1) + "');";
+				statement.executeUpdate(sql);
+			}
+			System.out.println("Inserts completed in the given database...");
+
+			// close statement object
+			statement.close();
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
 	
 	
 	
@@ -248,7 +292,28 @@ public class Dao {
 
 	}
 	
-	
+	public int insertWorkers(String worker_name, String workerID) {
+		int w = 0;
+		try {
+			statement = getConnection().createStatement();
+			statement.executeUpdate("Insert into tickets.nguyen_workers" + "(worker_name, worker_id) values(" + " '"
+					+ worker_name + "','" + workerID + "')", Statement.RETURN_GENERATED_KEYS);
+
+			// retrieve ticket id number newly auto generated upon record insertion
+			ResultSet resultSet = null;
+			resultSet = statement.getGeneratedKeys();
+			if (resultSet.next()) {
+				// retrieve first field in table
+				w = resultSet.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return w;
+
+	}
 	
 	
 	
@@ -314,6 +379,21 @@ public class Dao {
 			
 		}
 		return results4;
+
+	}
+	
+	public ResultSet readWorkersRecords() {
+
+		ResultSet results5 = null;
+		try {
+			statement = connect.createStatement();
+			results5 = statement.executeQuery("SELECT * FROM tickets.nguyen_workers");
+			
+		} catch (SQLException e5) {
+			e5.printStackTrace();
+			
+		}
+		return results5;
 
 	}
 	
